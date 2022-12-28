@@ -1,5 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { Content } from './content.entity';
 import { EntityBase } from './entityBase';
+import { ContentDto } from '../../../backend-social-1.0-dtos/src/dtos/content.dto';
 
 @Entity()
 export class User extends EntityBase {
@@ -17,4 +19,7 @@ export class User extends EntityBase {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Content, (content) => content.user)
+  contents: ContentDto[];
 }
