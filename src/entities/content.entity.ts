@@ -1,9 +1,11 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBase } from './entityBase';
 import { ContentType } from '../../../backend-social-1.0-dtos/src/enums/contentType.enum';
-import { userInfo } from 'os';
+
 import { UserDto } from '../../../backend-social-1.0-dtos/src/dtos/user.dto';
 import { User } from './user.entity';
+import { Option } from './option.entity';
+import { OptionDto } from '../../../backend-social-1.0-dtos/src/dtos/option.dto';
 
 @Entity()
 export class Content extends EntityBase {
@@ -14,6 +16,8 @@ export class Content extends EntityBase {
 
   @Column({
     nullable: false,
+    type: 'enum',
+    enum: ContentType,
     default: ContentType.POST,
   })
   type: ContentType;
@@ -29,4 +33,7 @@ export class Content extends EntityBase {
 
   @ManyToOne(() => User, (user) => user.contents)
   user: UserDto;
+
+  @OneToMany(() => Option, (option) => option.content)
+  options: OptionDto[];
 }
