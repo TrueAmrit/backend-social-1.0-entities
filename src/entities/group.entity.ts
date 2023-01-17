@@ -30,6 +30,5 @@ export class Group extends EntityBase {
   contents: ContentDto[];
 
   @ManyToMany(() => User, (user) => user.groups)
-  @JoinTable()
   users: UserDto[];
 }

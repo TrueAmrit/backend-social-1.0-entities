@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 import { Content } from './content.entity';
 import { EntityBase } from './entityBase';
 import { ContentDto } from '../../../backend-social-1.0-dtos/src/dtos/content.dto';
@@ -25,6 +25,9 @@ export class User extends EntityBase {
   @OneToMany(() => Content, (content) => content.user)
   contents: ContentDto[];
 
-  @ManyToMany(() => Group, (group) => group.users)
+  @ManyToMany(() => Group, (group) => group.users, {
+    cascade: true,
+  })
+  @JoinTable()
   groups: GroupDto[];
 }
