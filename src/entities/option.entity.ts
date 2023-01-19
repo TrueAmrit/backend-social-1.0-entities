@@ -12,6 +12,8 @@ export class Option extends EntityBase {
   @Column()
   body: string;
 
-  @ManyToOne(() => Content, (content) => content.options)
+  @ManyToOne(() => Content, (content) => content.options,{
+    cascade: true,
+  })
   content: ContentDto;
 }
