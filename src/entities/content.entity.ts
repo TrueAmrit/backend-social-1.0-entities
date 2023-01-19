@@ -7,6 +7,8 @@ import { User } from './user.entity';
 import { Option } from './option.entity';
 import { OptionDto } from '../../../backend-social-1.0-dtos/src/dtos/option.dto';
 import { Group } from './group.entity';
+import { Reaction } from './reaction.entity';
+import { ReactionDto } from '../../../backend-social-1.0-dtos/src/dtos/reaction.dto';
 
 @Entity()
 export class Content extends EntityBase {
@@ -40,4 +42,7 @@ export class Content extends EntityBase {
 
   @ManyToOne(() => Group, (group) => group.contents)
   group: GroupDto;
+
+  @OneToMany(() => Reaction, (reaction) => reaction.content)
+  reactions: ReactionDto[];
 }
